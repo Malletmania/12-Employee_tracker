@@ -1,17 +1,28 @@
 {
-  "name": "note-taker",
+  "name": "12-Employee_tracker",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
-  "scripts": {
-    "serve": "nodemon ./server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "main": "client.js",
+  "dependencies": {
+    "express": "^4.17.1",
+    "inquirer": "^8.2.0",
+    "mysql2": "^2.3.3",
+    "nodemon": "^2.0.15"
   },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Malletmania/12-Employee_tracker.git"
+  },
+  "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "express": "^4.16.4",
-    "nodemon": "^2.0.14",
-    "uuid": "^8.3.2"
-  }
+  "bugs": {
+    "url": "https://github.com/Malletmania/12-Employee_tracker/issues"
+  },
+  "homepage": "https://github.com/Malletmania/12-Employee_tracker#readme"
 }
