@@ -13,7 +13,7 @@ const db = mysql.createConnection(
   console.log(`Connected to employeetracker_db.`)
 );
 
-const startQuestion = [{
+const startQuestions = [{
   type: 'list',
   message: "Select from the choices below to begin.",
   choices: ['view all departments', 'view all roles', 'view all employees', 'add department', 'add role', 'add employee', 'update employee'],
@@ -64,3 +64,45 @@ const addQuestions = [{
   name: 'manager'
 },
 ];
+
+const updateEmp = [{
+  type: 'input',
+  message: 'Enter employees new role below',
+  name: 'updateRole'
+}]
+
+
+
+
+
+
+
+
+function init() {
+  inquirer.prompt(initQuestion)
+  .then(resp => {
+      if(resp.init === 'View Employees') {
+          viewEmp()
+      }
+      else if(resp.init === 'View Departments') {
+          viewDepartment()
+      }
+      else if(resp.init === 'View Roles') {
+          viewRoles()
+      }
+      else if(resp.init === 'Add Employee') {
+          addEmp()
+      }
+      else if(resp.init === 'Add Role') {
+          addRole()
+      }
+      else if(resp.init === 'Add Department') {
+          addDepartment()
+      }
+      else if(resp.init === 'Update Employee') {
+          updateEmp()
+      }
+
+  })
+}
+init()
