@@ -100,7 +100,11 @@ function viewRoles() {
 // revisit
 function viewEmp() {
   console.log("viewEmp init")
-  let sql = `SELECT employee.id, employee.emp_first_name, employee.emp_last_name, emp_role.role_title, department.dept_name, CONCAT()`
+  let sql = `SELECT employee.id, employee.emp_first_name, employee.emp_last_name, emp_role.role_title, department.dept_name, CONCAT(manager.emp_first_name, " ", manager.emp_last_name) AS manager From employee
+  
+  LEFT JOIN roles ON employee.emp_role_id = emp_role.id
+  LEFT JOIN department ON emp_role.role_dept_id = department.id
+  LEFT JOIN employee manager ON emp_manager.id = employee`
 }
 // revisit
 

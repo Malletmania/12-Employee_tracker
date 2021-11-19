@@ -8,10 +8,10 @@ VALUES ('Sales'),
 ('Legal');
 
 INSERT INTO emp_role (role_title, role_salary, role_dept_id)
-VALUES ('Sales Lead', 100000, 1),
+VALUES ('Manager', 100000, 1),
 ('Salesperson', 90000, 1),
 ('Software Engineer', 120000, 2),
-('Account Manager', 160000, 3),
+('Sales Lead', 160000, 3),
 ('Accountant', 100000, 3),
 ('Lawyer', 190000, 4),
 ('Legal Team Lead', 250000, 4),
