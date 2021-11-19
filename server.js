@@ -1,7 +1,6 @@
 const { json } = require("express");
 const inquirer = require("inquirer");
 const mysql = require("mysql2");
-const { func } = require("prop-types");
 const dotenv = require('dotenv').config();
 
 const db = mysql.createConnection(
@@ -27,7 +26,7 @@ const addDepartment = [{
   name: 'newDepartment'
 }];
 
-const addRole = [{
+const addEmployeeRole = [{
   type: 'input',
   message: 'Add new role below',
   name: 'roleName'
@@ -104,7 +103,17 @@ function viewEmp() {
   
   LEFT JOIN roles ON employee.emp_role_id = emp_role.id
   LEFT JOIN department ON emp_role.role_dept_id = department.id
-  LEFT JOIN employee manager ON emp_manager.id = employee`
+  LEFT JOIN employee manager ON emp_manager.id = employee`;
+
+  db.query(sql, (err, rows) => {
+    if(err) {
+        console.log(err)
+        // res.status(500).json({ error: err.message });
+   return;
+   }
+        console.log(rows)
+        init()
+   });
 }
 // revisit
 
@@ -128,7 +137,7 @@ function addEmp() {
 
 function addRole() {
   console.log("addRole init")
-  inquirer.prompt(addRole)
+  inquirer.prompt(addEmployeeRole)
   .then(resp => {
     db.query('INSERT INTO roles (role_title, role_salary, role_dept_id) VALUES (?, ?, ?)', [resp.roleName, resp.roleSalary, resp.roleDept],
     function (err, result) {
@@ -145,7 +154,7 @@ function addRole() {
 }
 
 function addDepartments() {
-  console.log("addDepartment init")
+  console.log("addDepartments init")
   inquirer.prompt(addDepartment)
   .then(resp => {
     db.query('INSERT INTO (dept_name) VALUES (?)', [resp.newDepartment],
@@ -162,9 +171,9 @@ function addDepartments() {
   })
 }
 
-function updateEmp() {
+function updateEmployee() {
   let sql1 = `SELECT employee.emp_first_name, employee.emp_last_name from employee`
-  db.query(sql1 (err, rows) => {
+  db.query(sql1, (err, rows) => {
     rows = rows.map( function(employee) {
       return employee.emp_first_name + " " + employee.emp_last_name
     })
@@ -197,7 +206,7 @@ function updateEmp() {
 }
 
 function init() {
-  inquirer.prompt(initQuestion)
+  inquirer.prompt(startQuestions)
   .then(resp => {
       if(resp.init === 'View Employees') {
           viewEmp()
@@ -218,7 +227,7 @@ function init() {
           addDepartments()
       }
       else if(resp.init === 'Update Employee') {
-          updateEmp()
+          updateEmployee()
       }
 
   })
