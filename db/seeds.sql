@@ -1,4 +1,6 @@
 -- revisit
+USE employee_bd;
+
 INSERT INTO department (dept_name)
 VALUES ('Sales'),
 ('Engineering'),
@@ -15,7 +17,7 @@ VALUES ('Sales Lead', 100000, 1),
 ('Legal Team Lead', 250000, 4),
 ('Lead Engineer', 150000, 2);
 
-INSERT INTO employee (emp_first_name, emp_last_name,emp_role_id, emp_manager_id)
+INSERT INTO employee (emp_first_name, emp_last_name, emp_role_id, emp_manager_id)
 VALUES ('Jordan', 'Brady', 1, 99)
 ('Jan', 'Brady', 2, 99),
 ('Marcia', 'Brady', 3, 99),

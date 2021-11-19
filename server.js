@@ -1,6 +1,7 @@
 const { json } = require("express");
 const inquirer = require("inquirer");
 const mysql = require("mysql2");
+const { func } = require("prop-types");
 const dotenv = require('dotenv').config();
 
 const db = mysql.createConnection(
@@ -71,12 +72,125 @@ const updateEmp = [{
   name: 'updateRole'
 }]
 
+function viewDepartment() {
+  console.log("viewDepartment init")
+  let sql = `SELECT * FROM departments`;
+  db.query(sql, (err, rows) => {
+    if(err) {
+      res.status(500).json({ error: err.message });
+      return;
+    }
+    console.log(rows)
+  });
+  init()
+}
 
+function viewRoles() {
+  console.log("viewRole init")
+  let sql = `SELECT * FROM roles`;
+  db.query(sql, (err, rows) => {
+    if(err) {
+      res.status(500).json({ error: err.message });
+      return;
+    }
+    console.log(rows)
+  });
+  init()
+}
+// revisit
+function viewEmp() {
+  console.log("viewEmp init")
+  let sql = `SELECT employee.id, employee.emp_first_name, employee.emp_last_name, emp_role.role_title, department.dept_name, CONCAT()`
+}
+// revisit
 
+function addEmp() {
+  console.log("addEmployee triggers")
+  inquirer.prompt(addQuestions)
+  .then(resp => {
+    db.query('INSERT INTO employee (emp_first_name, emp_last_name, emp_role_id, emp_manager_id) VALUES (?, ?, ?, ?)', [res.fname, resp.lname, resp.role, resp.manager],
+    function (err, result) {
+      if (result){
+        console.log("Employee added.");
+        init();
+      } else {
+        console.log(err)
+        console.log("Error!");
+        init();
+      }
+    })
+  })
+}
 
+function addRole() {
+  console.log("addRole init")
+  inquirer.prompt(addRole)
+  .then(resp => {
+    db.query('INSERT INTO roles (role_title, role_salary, role_dept_id) VALUES (?, ?, ?)', [resp.roleName, resp.roleSalary, resp.roleDept],
+    function (err, result) {
+      if (result){
+        console.log("Role has been added");
+        init();
+      } else {
+        console.log(err)
+        console.log("Error");
+        init();
+      }
+    })
+  })
+}
 
+function addDepartments() {
+  console.log("addDepartment init")
+  inquirer.prompt(addDepartment)
+  .then(resp => {
+    db.query('INSERT INTO (dept_name) VALUES (?)', [resp.newDepartment],
+    function (err, result) {
+      if (result){
+        console.log("Department added.");
+        init();
+      } else {
+        console.log(err)
+        console.log("Error");
+        init();
+      }
+    })
+  })
+}
 
+function updateEmp() {
+  let sql1 = `SELECT employee.emp_first_name, employee.emp_last_name from employee`
+  db.query(sql1 (err, rows) => {
+    rows = rows.map( function(employee) {
+      return employee.emp_first_name + " " + employee.emp_last_name
+    })
+    employeeUpdate =
+    {
+      type: 'list',
+      message: "Select employee you'd like to update",
+      choices: rows,
+      name: 'updateEmployee'
+    }
+    inquirer.prompt(employeeUpdate)
+    return employeeUpdate
+  })
 
+  let sql2 = `SELECT emp_role.role_title FROM emp_role`
+  db.query(sql2, (err, rows) => {
+    rows = rows.map( function(role) {
+      return role.title
+    })
+    roleUpdate =
+    {
+      type: 'list',
+      message: 'Which role would you like to select?',
+      choices: rows,
+      name: 'updateRole'
+    }
+    inquirer.prompt(roleUpdate)
+    return roleUpdate
+  })
+}
 
 function init() {
   inquirer.prompt(initQuestion)
@@ -97,7 +211,7 @@ function init() {
           addRole()
       }
       else if(resp.init === 'Add Department') {
-          addDepartment()
+          addDepartments()
       }
       else if(resp.init === 'Update Employee') {
           updateEmp()
