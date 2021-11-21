@@ -13,12 +13,12 @@ const db = mysql.createConnection(
   console.log(`Connected to employeetracker_db.`)
 );
 
-const startQuestions = [{
+const startQuestions = {
   type: 'list',
   message: "Select from the choices below to begin.",
   choices: ['view all departments', 'view all roles', 'view all employees', 'add department', 'add role', 'add employee', 'update employee'],
   name: 'title'
-}];
+};
 
 const addDepartment = [{
   type: 'input',
@@ -184,7 +184,7 @@ function updateEmployee() {
       choices: rows,
       name: 'updateEmployee'
     }
-    inquirer.prompt(employeeUpdate)
+    inquirer.prompt(updateEmp)
     return employeeUpdate
   })
 
@@ -206,8 +206,9 @@ function updateEmployee() {
 }
 
 function init() {
-  inquirer.prompt(startQuestions)
+  return inquirer.prompt(startQuestions)
   .then(resp => {
+      console.log(resp);
       if(resp.init === 'View Employees') {
           viewEmp()
       }
