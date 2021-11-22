@@ -1,6 +1,9 @@
 # MySQL Employee Tracker
 Bootcamp Homework #12
 
+## Video
+https://drive.google.com/file/d/1tyEx0A_OlzfFYYchogMCA4c3ZMhBxhew/view
+
 ## Description 
 I have created a command line application that allows uses to interact any several ways with their employee database. Users can create a list of all departments, all roles, and all employes. It allows them to add a new department, role, or employee. Additionally, users can update an employee's role using the application. 
 
